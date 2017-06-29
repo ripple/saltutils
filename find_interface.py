@@ -229,7 +229,7 @@ def main(_):
     for interface in get_network_interfaces():
         if interface.name in INT_BLACKLIST:
             continue
-        ipv4_addresses = interface.addresses.get(AF_INET)
+        ipv4_addresses = interface.addresses.get(AF_INET) or []
         for addr in ipv4_addresses:
             logger.debug('Raw ipv4: {}'.format(addr))
             ipv4 = IPv4Address(addr)
