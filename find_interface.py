@@ -231,16 +231,16 @@ def main(_):
             continue
         ipv4_addresses = interface.addresses.get(AF_INET) or []
         for addr in ipv4_addresses:
-            logger.debug('Raw ipv4: {}'.format(addr))
+            logger.debug('Raw ipv4: %s', addr)
             ipv4 = IPv4Address(addr)
             ipv4.parse()
-            logger.debug('IPv4 address: {}'.format(ipv4.address))
+            logger.debug('IPv4 address: %s', ipv4.address)
             for internal_net in RFC1918_NETWORKS:
                 network = IPv4Network(internal_net)
                 network.parse()
-                logger.debug('IPv4 Network: {}'.format(network.address))
-                logger.debug('IPv4 Broadcast: {}'.format(network.broadcast))
-                logger.debug('IPv4 Netmask: {}'.format(network.netmask))
+                logger.debug('IPv4 Network: %s', network.address)
+                logger.debug('IPv4 Broadcast: %s', network.broadcast)
+                logger.debug('IPv4 Netmask: %s', network.netmask)
                 if network.address_in(ipv4):
                     candidates.append(interface.name)
 
@@ -255,8 +255,9 @@ def main(_):
     else:
         candidates.sort()
         logger.warning(
-            "WARNING: >1 interface ('{}') found! Returning {}.\n".format(
-                ', '.join(candidates), candidates[0])
+            "WARNING: >1 interface ('%s') found! Returning %s.\n",
+            ', '.join(candidates),
+            candidates[0]
         )
         return candidates[0]
 
